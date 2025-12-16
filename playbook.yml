@@ -1,0 +1,32 @@
+---
+# fluttershy - Raspberry Pi 5 configuration
+# Run with: ansible-playbook -i inventory.ini playbook.yml --tags <tag>
+
+- name: Configure fluttershy (Raspberry Pi 5)
+  hosts: fluttershy
+  become: yes
+
+  pre_tasks:
+    - name: Ensure system is up to date
+      apt:
+        update_cache: yes
+        upgrade: dist
+        autoremove: yes
+      tags: always
+
+  roles:
+    - role: common
+      tags: common
+
+    # Uncomment or run with --tags when you're ready for each section
+    # - role: desktop
+    #   tags: desktop
+
+    # - role: piaware
+    #   tags: piaware
+
+    # - role: gps_pps
+    #   tags: gps_pps
+
+    # - role: shipometer
+    #   tags: shipometer
