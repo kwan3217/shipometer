@@ -1,0 +1,7 @@
+# Temporary files
+*.retry
+*.pyc
+__pyc__
+
+# Sensitive data (if you ever add vault-encrypted files, they'll be committed safely)
+# !*.vault.yml
