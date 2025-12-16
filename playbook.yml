@@ -25,8 +25,8 @@
     # - role: piaware
     #   tags: piaware
 
-    - role: gps_pps
-      tags: gps_pps
+    - role: pps
+      tags: pps
      
     #- role: gps_time
     #  tags: gps_time
