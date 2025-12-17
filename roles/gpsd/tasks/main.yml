@@ -1,0 +1,57 @@
+---
+- name: Install gpsd and clients
+  apt:
+    name:
+      - gpsd
+      - gpsd-clients
+    state: present
+  tags: gpsd
+
+- name: Configure /etc/default/gpsd
+  copy:
+    dest: /etc/default/gpsd
+    content: |
+      DEVICES="/dev/ttyAMA2 /dev/pps0"
+      GPSD_OPTIONS="-G -n -s 230400"
+      USBAUTO="false"
+    mode: "0644"
+  tags: gpsd
+
+- name: Override gpsd.socket to listen on all interfaces and permissive Unix socket
+  ansible.builtin.blockinfile:
+    path: /etc/systemd/system/gpsd.socket.d/override.conf
+    create: yes
+    mode: "0644"
+    block: |
+      [Socket]
+      ListenStream=                  # Need this to clear default first, before...
+      ListenDatagram=/run/gpsd.sock    # setting unix domain socket for local chrony
+      ListenStream=0.0.0.0:2947      # setting listen on any ipv4 address
+      ListenStream=[::]:2947         # and setting listen on any ipv6 address 
+      SocketMode=0666
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - gpsd network access"
+  tags: gpsd
+
+- name: Set /dev/pps* permissions via udev rule (group dialout, readable)
+  ansible.builtin.copy:
+    dest: /etc/udev/rules.d/99-pps.rules
+    content: |
+      KERNEL=="pps*", SUBSYSTEM=="pps", GROUP="dialout", MODE="0660"
+    mode: "0644"
+  tags: chrony
+
+- name: Add _chrony user to dialout group for direct PPS access
+  user:
+    name: _chrony
+    groups: dialout
+    append: yes
+  tags: chrony
+
+- name: Ensure gpsd is enabled and running
+  service:
+    name: gpsd
+    enabled: yes
+    state: started
+  tags: gpsd
+
+

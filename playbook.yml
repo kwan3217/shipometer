@@ -3,7 +3,7 @@
 # Run with: ansible-playbook -i inventory.ini playbook.yml --tags <tag>
 
 - name: Configure fluttershy (Raspberry Pi 5)
-  hosts: fluttershy
+  hosts: shipometers
   become: yes
 
   pre_tasks:
@@ -22,14 +22,17 @@
     # - role: desktop
     #   tags: desktop
 
-    # - role: piaware
-    #   tags: piaware
+    - role: piaware
+      tags: piaware
 
     - role: pps
       tags: pps
      
-    #- role: gps_time
-    #  tags: gps_time
+    - role: gpsd
+      tags: gpsd
+
+    - role: chrony
+      tags: chrony
 
     # - role: shipometer
     #   tags: shipometer
