@@ -1,0 +1,11 @@
+- name: Daemon reload
+  systemd:
+    daemon_reload: yes
+
+- name: Reload udev rules
+  command: udevadm control --reload-rules && udevadm trigger
+  
+- name: Reboot required
+  reboot:
+    reboot_timeout: 300
+
