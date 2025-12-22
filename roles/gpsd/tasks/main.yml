@@ -54,13 +54,6 @@
     mode: "0644"
   tags: chrony
 
-- name: Add _chrony user to dialout group for direct PPS access
-  user:
-    name: _chrony
-    groups: dialout
-    append: yes
-  tags: chrony
-
 - name: Ensure gpsd is enabled and running
   service:
     name: gpsd
