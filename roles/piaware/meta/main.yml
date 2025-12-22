@@ -1,0 +1,5 @@
+dependencies:
+  - role: gpsd
+    tags: gpsd
+  - role: chrony
+    tags: chrony      
