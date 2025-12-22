@@ -1,5 +1,5 @@
 ---
-- name: Ensure PPS, UART, and radio disable overlays are configured in /boot/firmware/config.txt
+- name: Ensure PPS overlay is configured in /boot/firmware/config.txt
   ansible.builtin.lineinfile:
     path: /boot/firmware/config.txt
     regexp: "{{ item.regexp }}"
