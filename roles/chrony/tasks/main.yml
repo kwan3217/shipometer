@@ -22,6 +22,7 @@
     owner: root
     group: root
     mode: "0644"
+  notify: Restart chrony
   tags: chrony
 
 - name: Enable and start chrony
