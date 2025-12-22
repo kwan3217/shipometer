@@ -26,6 +26,7 @@
       GPSD_OPTIONS="-G -n -s 230400"
       USBAUTO="false"
     mode: "0644"
+  notify: Restart gpsd
   tags: gpsd
 
 - name: Override gpsd.socket to listen on all interfaces and permissive Unix socket
