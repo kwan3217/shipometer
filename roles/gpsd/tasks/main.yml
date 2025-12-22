@@ -36,10 +36,10 @@
     block: |
       [Socket]
       ListenStream=                  # Need this to clear default first, before...
-      ListenDatagram=/run/gpsd.sock    # setting unix domain socket for local chrony
-      ListenStream=0.0.0.0:2947      # setting listen on any ipv4 address
-      ListenStream=[::]:2947         # and setting listen on any ipv6 address 
-      SocketMode=0666
+      ListenStream=/run/gpsd.sock    # setting unix domain socket for local chrony
+      ListenStream=2947              # setting listen on any ipv4 or ipv6 address on port 2947
+      SocketMode=0666                # Enable non-root to listen
+      BindIPv6Only=no                # Bind to both ipv4 and ipv6
     marker: "# {mark} ANSIBLE MANAGED BLOCK - gpsd network access"
   notify:
     - Daemon reload
