@@ -1,0 +1,31 @@
+- name: Install FlightAware APT repository meta-package
+  apt:
+    deb: https://www.flightaware.com/adsb/piaware/files/packages/pool/piaware/f/flightaware-apt-repository/flightaware-apt-repository_1.2_all.deb
+  tags: piaware
+
+- name: Install piaware and dump1090-fa
+  apt:
+    name:
+      - piaware
+      - dump1090-fa
+    state: present
+    update_cache: yes
+  tags: piaware
+
+- name: Restore original FlightAware feeder-id from backup
+  ansible.builtin.copy:
+    src: "{{ piaware_feeder_id_file }}"   # we'll define this var
+    dest: /var/cache/piaware/feeder_id
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart piaware
+  tags: piaware
+
+- name: Enable and start piaware service
+  systemd:
+    name: piaware
+    state: started
+    enabled: yes
+  tags: piaware
+
