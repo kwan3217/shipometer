@@ -2,3 +2,5 @@
 dependencies:
   - role: gpsd
     tags: gpsd
+  - role: common
+    tags: common

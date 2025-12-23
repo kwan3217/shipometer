@@ -1,6 +1,4 @@
 ---
 dependencies:
-  - role: pps
-    tags: pps
   - role: common
     tags: common
