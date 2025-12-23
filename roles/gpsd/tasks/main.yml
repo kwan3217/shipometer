@@ -30,18 +30,12 @@
   tags: gpsd
 
 - name: Override gpsd.socket to listen on all interfaces and permissive Unix socket
-  ansible.builtin.blockinfile:
-    path: /etc/systemd/system/gpsd.socket.d/override.conf
-    create: yes
+  ansible.builtin.copy:
+    src: files/10-ansible.conf
+    dest: /etc/systemd/system/gpsd.socket.d/10-ansible.conf
+    owner: root
+    group: root
     mode: "0644"
-    block: |
-      [Socket]
-      ListenStream=                  # Need this to clear default first, before...
-      ListenStream=/run/gpsd.sock    # setting unix domain socket for local chrony
-      ListenStream=2947              # setting listen on any ipv4 or ipv6 address on port 2947
-      SocketMode=0666                # Enable non-root to listen
-      BindIPv6Only=no                # Bind to both ipv4 and ipv6
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - gpsd network access"
   notify:
     - Daemon reload
     - Restart gpsd
