@@ -1,0 +1,3 @@
+[submodule "hardware/case/RaspberryPi"]
+	path = hardware/case/RaspberryPi
+	url = https://github.com/RalfLangeDresden/RaspberryPiCases
