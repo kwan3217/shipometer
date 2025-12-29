@@ -1,5 +1,3 @@
-MM=1;
-INCH=25.4*MM;
 EPS=0.5*MM;
 
 M5_hole_MM=3.0;
@@ -23,7 +21,7 @@ module rounded_cube(l,w,h,r=2*MM) {
 }
 
 
-module bottom_plate() {
+module fan_sandwich_bottom_plate() {
 difference() {
 //main body
 translate([0,0,0])
@@ -99,13 +97,23 @@ module fan_pegs() {
     cylinder(h=3*MM,r=(4*MM-EPS)/2,$fn=24);
 }
 
-rotate([180,0,0])
-union() {
-bottom_plate();
-//translate([(3.5+29)*MM-1*INCH+15*MM,(56/2)*MM,-7.7/2*MM])color("black")fan();
-translate([(3.5+29)*MM-1*INCH+15*MM,(56/2)*MM,0])color("orange")fan_pegs();
-translate([(3.5+29)*MM-1*INCH+15*MM,(56/2)*MM+15*MM,0])
-rotate([0,0,-90])
-rotate([180,0,0])
-fan_hook();
+module fan_sandwich() {
+  union() {
+  fan_sandwich_bottom_plate();
+
+  translate([(3.5+29)*MM-1*INCH+15*MM,(56/2)*MM,0])color("orange")fan_pegs();
+    translate([(3.5+29)*MM-1*INCH+15*MM,(56/2)*MM+15*MM,0])
+    rotate([0,0,-90])
+    rotate([180,0,0])
+    fan_hook();
+  }
 }
+
+module placed_fan() {
+  translate([(3.5+29)*MM-1*INCH+15*MM,(56/2)*MM,-7.7/2*MM])
+  color("black")
+  fan();
+}
+
+// Uncomment this if you want to actually print it
+//rotate([180,0,0]) fan_sandwich();
