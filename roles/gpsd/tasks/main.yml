@@ -29,6 +29,15 @@
   notify: Restart gpsd
   tags: gpsd
 
+- name: Ensure gpsd.socket drop-in directory exists
+  ansible.builtin.file:
+    path: /etc/systemd/system/gpsd.socket.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tags: gpsd
+
 - name: Override gpsd.socket to listen on all interfaces and permissive Unix socket
   ansible.builtin.copy:
     src: files/10-ansible.conf
