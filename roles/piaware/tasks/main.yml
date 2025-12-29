@@ -12,9 +12,9 @@
     update_cache: yes
   tags: piaware
 
-- name: Restore original FlightAware feeder-id from backup
+- name: Set FlightAware feeder-id
   ansible.builtin.copy:
-    src: "{{ piaware_feeder_id_file }}"   # we'll define this var
+    content: "{{ piaware_feeder_id }}\n"
     dest: /var/cache/piaware/feeder_id
     owner: root
     group: root
