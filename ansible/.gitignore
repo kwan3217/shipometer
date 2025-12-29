@@ -1,10 +1,4 @@
-# Temporary files
-*.retry
-*.pyc
-__pyc__
 
-# Sensitive data (if you ever add vault-encrypted files, they'll be committed safely)
+# Sensitive data
 secrets/
 
-# IDE files
-.idea/
