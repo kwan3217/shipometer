@@ -1,0 +1,8 @@
+---
+dependencies:
+  - role: common
+    tags: common
+  - role: gpsd
+    tags: gpsd
+  - role: piaware
+    tags: piaware

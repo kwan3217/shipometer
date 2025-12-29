@@ -1,0 +1,41 @@
+---
+- name: Install shipometer packages
+  apt:
+    name:
+      - lm-sensors
+      - netcat-traditional
+      - sysstat
+      - bc
+    state: present
+
+- name: Deploy shipometer recording scripts
+  copy:
+    src: files/{{ item }}
+    dest: /home/chrisj/{{ item }}
+    owner: chrisj
+    group: chrisj
+    mode: "0755"
+  loop:
+    - handle_startup.sh
+    - record_1090.sh
+    - record_all.sh
+    - record_gps.sh
+    - record_pi_temp.sh
+    - record_uptime.sh
+  tags: shipometer
+
+- name: Schedule record_all.sh every 10 minutes
+  cron:
+    name: "Shipometer data recording"
+    minute: "*/10"
+    job: "/bin/bash /home/chrisj/record_all.sh"
+    user: chrisj
+  tags: shipometer
+
+- name: Schedule handle_startup.sh to run once at boot
+  cron:
+    name: "Shipometer startup tasks"
+    special_time: reboot
+    job: "/bin/bash /home/chrisj/handle_startup.sh"
+    user: chrisj
+  tags: startup
