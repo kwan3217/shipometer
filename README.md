@@ -49,27 +49,14 @@ Use `rpi-imager`.
 ### Write the image
 Continue until the program writes the image on the card. Writing the image will take a few minutes.
 
-## SSH host identity
-Eject the card but then plug it back into the host. Run this:
-
-```
-sudo cp -av /mnt/big/backups/fluttershy/2025-12-15/etc/ssh/ssh_host_* /media/chrisj/rootfs/etc/ssh/
-```
-
-Edit the file `/media/chrisj/rootfs/usr/lib/raspberrypi-sys-mods/firstboot` and comment out the lines about
-recalculating the host identity:
-```
-main () {
-  get_variables
-
-  # whiptail --infobox "Generating SSH keys..." 20 60
-  # regenerate_ssh_host_keys
-```
-
 ## Boot new card in Fluttershy
-Eject the card again, move it back to Fluttershy, and boot it.
-
 Unmount and remove the card from the host and install it in a powered-off or red light Raspberry Pi 5.
-Start it back up and wait for it to respond to pings. The router (Megumu)
+Start it back up and wait for it to respond to pings. The router (Megumi)
 knows Fluttershy's MAC address and will assign it the known IP `192.168.217.102`
 and name `fluttershy.kwansystems.org`
+
+## Run ansible
+```
+cd shipometer/ansible
+ansible-playbook -i inventory.ini playbook.yml
+```
