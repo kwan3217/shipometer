@@ -34,5 +34,5 @@
     - role: chrony
       tags: chrony
 
-    # - role: shipometer
-    #   tags: shipometer
+    - role: shipometer
+      tags: shipometer
