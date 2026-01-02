@@ -1,25 +1,8 @@
+include<kwan_primitives.scad>
+
 EPS=0.5*MM;
 
 M5_hole_MM=3.0;
-
-
-module rounded_cube(l,w,h,r=2*MM) {
-  union() {
-    translate([r,0,0])
-    cube([l-2*r,w,h]);
-    translate([0,r,0])
-    cube([l,w-2*r,h]);
-    translate([r,r,0])
-    cylinder(h=h,r1=r,r2=r,$fn=36);
-    translate([r,w-r,0])
-    cylinder(h=h,r1=r,r2=r,$fn=36);
-    translate([l-r,r,0])
-    cylinder(h=h,r1=r,r2=r,$fn=36);
-    translate([l-r,w-r,0])
-    cylinder(h=h,r1=r,r2=r,$fn=36);
-  }
-}
-
 
 module fan_sandwich_bottom_plate() {
 difference() {
