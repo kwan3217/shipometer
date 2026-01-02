@@ -1,14 +1,36 @@
+// Coordinate frame -- 
+// origin is on plane of top surface of Pi board, where 
+
 include <kwan_primitives.scad>
 $fn=24;
 include <RaspberryPi/raspberry/Pi5Boards.scad>
-translate([42.5,27.8,0.0])
-pi5();
+translate([42.5,28,-pcbT/2*MM])pi5(heatSink=true);
+translate([0,0,15*MM+6*MM+2*MM])
+scale([1,1,1.6*MM/pcbT])
+translate([32.5,28.25,pcbT/2*MM])
+pi5HatPcb(resist="purple");
 include <Fan Sandwich.scad>
-translate([0,0,15*MM])
-color("#ffC0C0")
-fan_sandwich();
-translate([0,0,15*MM])
-placed_fan();
+translate([0,0,15*MM])color("#ffC0C0")fan_sandwich();
+//15mm standoffs
+translate([0,0,15*MM])placed_fan();
+translate([3.5*MM,3.5*MM,0*MM])
+cylinder(15*MM,r=2.8868*MM,$fn=6);
+translate([(3.5+58)*MM,3.5*MM,0*MM])
+cylinder(15*MM,r=2.8868*MM,$fn=6);
+translate([3.5,(3.5+49)*MM,0*MM])
+cylinder(15*MM,r=2.8868*MM,$fn=6);
+translate([(3.5+58)*MM,(3.5+49)*MM,0*MM])
+cylinder(15*MM,r=2.8868*MM,$fn=6);
+
+//6mm standoffs
+translate([3.5*MM,3.5*MM,15*MM+2*MM])
+cylinder(6*MM,r=2.8868*MM,$fn=6);
+translate([(3.5+58)*MM,3.5*MM,15*MM+2*MM])
+cylinder(6*MM,r=2.8868*MM,$fn=6);
+translate([3.5,(3.5+49)*MM,15*MM+2*MM])
+cylinder(6*MM,r=2.8868*MM,$fn=6);
+translate([(3.5+58)*MM,(3.5+49)*MM,15*MM+2*MM])
+cylinder(6*MM,r=2.8868*MM,$fn=6);
 
 M5_head_MM=6.5;
 M5_hole_MM=3.0;
@@ -16,9 +38,9 @@ M5_hole_MM=3.0;
 module foot() {
   difference() {
     union() {
-      translate([0,0,-7])
-      cylinder(7-1.6,3,3,$fn=24);
-      translate([0,0,-7])
+      translate([0,0,-7*MM])
+      cylinder(7*MM-pcbT,3,3,$fn=24);
+      translate([0,0,-7*MM])
       cylinder(3,5,5,$fn=24);
     }
     union() {
@@ -90,14 +112,8 @@ anchor_screen();
 }
 
 intersection() {
-union() {
-feet();
-bottom_plate();
-  translate([-9,-9,-5])
-  linear_extrude(1)
-  scale(0.5)
-  text(str(M5_head_MM),font="Arial Black");
-}
-//color([1,0,0])
-//cube([20,20,20],center=true);
+  union() {
+    feet();
+    bottom_plate();
+  }
 }
