@@ -23419,7 +23419,7 @@
 			)
 		)
 	)
-	(gr_text "Version 23.05"
+	(gr_text "Version 23.04.1"
 		(at 154.178 84.836 0)
 		(layer "F.Mask")
 		(uuid "db14ce04-de8a-4620-ae8d-5358a4c0bccd")
@@ -23431,7 +23431,7 @@
 			(justify left)
 		)
 	)
-	(gr_text "Version 23.05"
+	(gr_text "Version 23.04.1"
 		(at 164.592 84.836 0)
 		(layer "B.Mask")
 		(uuid "611e3ce6-1196-47fe-b05b-7df3484ef922")
